@@ -1,0 +1,82 @@
+.register {
+	background-color: #F25943;
+	background-image: url(../../../assets/img/registerbg.png);
+	background-size: 86% 90%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.logo {
+	width: 3.53rem;
+	margin: 2.2rem auto 2.2rem;
+}
+
+.fromBox {
+	width: 7rem;
+	margin: 0 auto;
+}
+
+.icon {
+	font-size: 0.7rem;
+	color: #fff;
+}
+
+.fromBoxInput {
+	width: 6rem;
+	height: .8rem;
+	line-height: .8rem;
+	font-size: .5rem;
+	background: transparent;
+	border: 0;
+	border-bottom: 2px solid #fff;
+	color: #fff;
+	text-indent: .3rem;
+	float: left;
+	margin-left: .25rem;
+	outline: none;
+}
+
+.fromBoxInput:focus {
+	color: #fff;
+}
+
+.fromBoxInput.userCode {
+	width: 3.1rem;
+}
+
+.fromBoxInput::-webkit-input-placeholder {
+	color: #fff;
+	font-size: .35rem
+}
+
+.fromBoxInput::-moz-placeholder {
+	color: #fff;
+	font-size: .35rem
+}
+
+.fromBoxInput:-ms-input-placeholder {
+	color: #fff;
+	font-size: .35rem
+}
+
+input.fromBoxInput:-moz-placeholder {
+	color: #fff;
+	font-size: .35rem
+}
+
+.item {
+	margin-bottom: .8rem;
+}
+
+.getCodeBtn {
+	width: 2.4rem;
+	height: .9rem;
+	font-size: .4rem;
+	border-radius: .15rem;
+	margin-left: .2rem;
+}
+
+.submit {
+	width: 7rem;
+	height: 1.05rem;
+}

@@ -1,0 +1,315 @@
+/* reset */
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+blockquote,
+pre,
+hr,
+figure,
+table,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+menu {
+	margin: 0;
+	padding: 0;
+}
+
+header,
+footer,
+section,
+article,
+aside,
+nav,
+hgroup,
+address,
+figure,
+figcaption,
+menu,
+details {
+	display: block;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+caption,
+th {
+	text-align: left;
+	font-weight: normal;
+}
+
+html,
+body,
+fieldset,
+img,
+iframe,
+abbr {
+	border: 0;
+}
+
+i,
+cite,
+em,
+var,
+address,
+dfn {
+	font-style: normal;
+}
+
+[hidefocus],
+summary {
+	outline: 0;
+}
+
+li {
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small {
+	font-size: 100%;
+}
+
+sup,
+sub {
+	font-size: 83%;
+}
+
+pre,
+code,
+kbd,
+samp {
+	font-family: inherit;
+}
+
+q:before,
+q:after {
+	content: none;
+}
+
+textarea {
+	overflow: auto;
+	resize: none;
+}
+
+label,
+summary {
+	cursor: default;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+strong,
+b {
+	font-weight: bold;
+}
+
+del,
+ins,
+u,
+s,
+a,
+a:hover {
+	text-decoration: none;
+}
+
+body,
+textarea,
+input,
+button,
+select,
+keygen,
+legend {
+	font: 12px/1.14 arial, \5b8b\4f53;
+	color: #333;
+	outline: 0;
+}
+
+a,
+a:hover {
+	color: #333;
+}
+
+.boxSizing {
+	box-sizing: border-box;
+}
+
+body {
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	-ms-user-drag: none;
+	user-drag: none;
+	font-family: 'Microsoft Yahei', Arial;
+	font-size: 62.5%;
+	background: #ccc;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: #fff;
+}
+
+.rela {
+	position: relative !important;
+}
+
+.abso {
+	position: absolute !important;
+}
+
+.dn {
+	display: none !important;
+}
+
+.left {
+	float: left !important;
+}
+
+.right {
+	float: right !important;
+}
+
+.clear {
+	clear: both;
+}
+
+.clear:after {
+	display: block;
+	content: ".";
+	clear: both;
+	visibility: hidden;
+	overflow: hidden;
+	width: 100%;
+	height: 0;
+}
+
+/*弹性盒子*/
+
+.flexBox {
+	display: -moz-box;
+	display: -webkit-box;
+	display: box;
+}
+
+.flexOne {
+	-moz-box-flex: 1;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+
+.flexTwo {
+	-moz-box-flex: 2;
+	-webkit-box-flex: 2;
+	box-flex: 2;
+}
+
+
+/*滚动条*/
+
+body::-webkit-scrollbar {
+	width: 1px;
+	height: 0px;
+	background-color: #F08200;
+	opacity: 0;
+}
+
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+body::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px #fff;
+	border-radius: 10px;
+	background-color: #ffffff;
+}
+
+
+/*定义滑块 内阴影+圆角*/
+
+body::-webkit-scrollbar-thumb {
+	border-radius: 20px;
+	background-color: #F08200;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+@font-face {
+  font-family: 'iconfont';  /* project id 285165 */
+  src: url('//at.alicdn.com/t/font_ncjdfzv8v1ud6lxr.eot');
+  src: url('//at.alicdn.com/t/font_ncjdfzv8v1ud6lxr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_ncjdfzv8v1ud6lxr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_ncjdfzv8v1ud6lxr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_ncjdfzv8v1ud6lxr.svg#iconfont') format('svg');
+}
+.myicon{
+	font-family:"iconfont" !important;
+	font-size:.4rem;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}
+.theme.button{
+	border: 0;
+	border-radius: .5rem;
+	background: #fff;
+	color: #F25943;
+	font-size: .6rem;
+}
+
+.sub{
+	vertical-align:sub !important;
+}
+.super{
+	vertical-align:super !important;
+}
+.fzemA{
+	font-size: .8em;
+}

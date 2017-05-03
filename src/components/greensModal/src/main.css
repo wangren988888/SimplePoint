@@ -1,0 +1,212 @@
+.module {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+.module .mask {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #000;
+	opacity: .8;
+	z-index: 10;
+}
+.module .def {
+	width: 100%;
+	height: 100%;
+}
+.module .scrollBox .conter {
+	width: 8rem;
+	height: 11rem;
+	margin: 0 auto;
+	position: relative;
+	z-index: 11;
+	background: #FFF;
+	border-radius: .3rem;
+	top: 10%;
+	opacity: 0;
+	overflow: hidden;
+	transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+	-o-transition: all .5s;
+}
+
+
+/*.fade-enter-active,
+.fade-leave-active {
+	transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+	-o-transition: all .5s;
+}
+
+.conter.fade-enter,
+.conter.fade-leave-active {
+	top: 10%;
+	opacity: 0;
+}*/
+
+.isWKwebView .scrollBox .conter.show {
+	top: 13%;
+	opacity: 1;
+}
+
+.isWKwebView .scrollBox .conter.hide {
+	top: 10%;
+	opacity: 0;
+}
+
+.bannerImgBox {
+	width: 100%;
+	height: 75%;
+	background: #000;
+	overflow: hidden;
+}
+
+.mySwipe {
+	height: 100%;
+	border-top-left-radius: .3rem;
+	border-top-right-radius: .3rem;
+	text-align: center;
+	position: relative;
+}
+
+.mySwipe .swipeTitleBg {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+	background: #000;
+	opacity: .4;
+	display: block;
+}
+
+.mySwipe .swipeTitle {
+	position: absolute;
+	width: calc(100% - .4rem);
+	height: 1rem;
+	line-height: 1rem;
+	padding: 0 .2rem;
+	font-size: .35rem;
+	color: #fff;
+	left: 0;
+	bottom: 0;
+	text-align: left;
+	overflow: hidden;
+}
+
+.isWKwebView .slide {
+	border-top-left-radius: .2rem;
+	border-top-right-radius: .2rem;
+}
+
+.swipeImg {
+	width: 100%;
+	height: 100%;
+}
+
+.greendBg {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../../../assets/img/noimgdef.jpg);
+}
+
+.greendInfo {
+	padding: 0 .45rem;
+	text-align: left;
+}
+
+.greendInfo .title {
+	font-size: .4rem;
+	margin-top: .3rem;
+	color: #111111;
+}
+
+.greendInfo .seel {
+	font-size: .3rem;
+	margin-top: .3rem;
+	color: #8C939D;
+}
+
+.moneyAndBtn {
+	margin-top: .3rem;
+}
+
+.moneyAndBtn .money {
+	font-size: .45rem;
+	color: #F25943;
+	float: left;
+}
+
+.moneyAndBtn .subs {
+	font-size: .35rem;
+}
+
+.moneyAndBtn .addBtn {
+	float: right;
+	font-size: .3rem;
+	background: #F25943;
+	padding: .2rem .3rem;
+	border-radius: .35rem;
+	border: 0;
+	color: #fff;
+	margin-top: -.18rem;
+}
+
+.allShow {
+	background: #f1f1f1;
+}
+
+.allShow .scrollBox .conter {
+	top: 0;
+	width: 100%;
+	opacity: 1;
+	border-radius: 0;
+}
+
+.noShowBox {
+	opacity: 0;
+	transition: all .5s .5s;
+	-moz-transition: all .5s .5s;
+	-webkit-transition: all .5s .5s;
+	-o-transition: all .5s .5s;
+}
+
+.allShow .noShowBox {
+	opacity: 1;
+}
+
+.noShowBox .evaluate {
+	padding: 0 .3rem;
+	background: #fff;
+	font-size: .4rem;
+	margin: .3rem auto;
+	height: 1.1rem;
+	line-height: 1.1rem;
+	color: #111111;
+}
+
+.noShowBox .recommend {
+	background: #fff;
+	height: 100rem;
+}
+
+.recommend .recommendTitle {
+	padding: 0 .3rem;
+	font-size: .4rem;
+	height: 1.1rem;
+	line-height: 1.1rem;
+	text-align: left;
+}

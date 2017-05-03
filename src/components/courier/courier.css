@@ -1,0 +1,95 @@
+* {
+	box-sizing: border-box
+}
+
+.page {
+	background-color: #e5e5e5 !important;
+}
+
+.deliver {
+	width: 100%;
+	display: inline-block;
+	float: left;
+}
+
+.text-dl {
+	width: 100%;
+	display: inline-block;
+	float: left;
+}
+
+.text-dl dd {
+	width: 100%;
+	display: inline-block;
+	float: left;
+	line-height: 0.75rem;
+	color: #666;
+	font-size: 0.4rem;
+}
+
+.text-dl dd span {
+	width: 2.25rem;
+	display: inline-block;
+	float: left;
+	text-align: left;
+}
+
+.text-dl dd p {
+	width: auto;
+	display: inline-block;
+	float: left;
+	color: #333;
+}
+
+.courier_list {
+	width: 100%;
+	display: inline-block;
+	float: left;
+	padding: 1rem .4rem .4rem .4rem;
+}
+
+.courier_list ul li {
+	width: 100%;
+	display: inline-block;
+	float: left;
+	margin-bottom: 0.4rem;
+	padding: 0.3rem 0.4rem;
+	background-color: #fff;
+}
+
+.deliver button {
+	width: 2.5rem;
+	height: 1rem;
+	background-color: #F25943;
+	border: 0;
+	float: right;
+	margin-left: 0.35rem;
+	margin-top: .25rem;
+	font-size: 0.45rem;
+	color: #fff;
+	border-radius: 0.1rem;
+}
+
+.dispose_list {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #fff;
+	height: 1rem;
+}
+
+.dispose_list ul li {
+	width: 50%;
+	display: inline-block;
+}
+
+.btn{
+	width: 3rem;
+	height: .5rem;
+	font-size: .35rem;
+}
+.btn.on{
+	background: #F25943;
+	color: #fff;
+}
