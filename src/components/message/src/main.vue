@@ -162,7 +162,7 @@
 		top: 0;
 		left: 0;
 		background-color: #000;
-		opacity: .7;
+		opacity: .6;
 		z-index: 10;
 	}
 	

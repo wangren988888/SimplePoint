@@ -23,11 +23,16 @@ Vue.component('swipe', Swipe);
 Vue.component('swipe-item', SwipeItem);
 
 var VueTouch = require('vue-touch')
-Vue.use(VueTouch, {name: 'v-touch'})
-
-var identity = "user";
-var openid = "123456";
+Vue.use(VueTouch, {
+	name: 'v-touch'
+})
 Vue.config.productionTip = false;
+
+//微信的引入
+var script = document.createElement("script");
+script.type = "text/javascript";
+script.src = "http://res.wx.qq.com/open/js/jweixin-1.2.0.js";
+document.body.appendChild(script);
 
 var overscroll = function(el) {
 	el.addEventListener('touchstart', function() {
@@ -93,29 +98,179 @@ document.body.addEventListener('touchmove', function(evt) {
 	window.rem = rem;
 })();
 
-new Vue({
-	el: '#app',
-	router,
-	template: '<App/>',
-	components: {
-		App
-	},
-	created() {
-		if(identity == "user") {
-			this.$router.push({
-				name: 'index'
-			});
-		} else if(identity == "admin") {
-			/*this.$router.push({
-				name:'admin'
-			});*/
-		} else if(identity == "unregistered") {
-			this.$router.push({
-				name: 'register',
-				params: {
-					openid: openid
-				}
-			});
-		}
+//在微信端获取微信号
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return unescape(r[2]);
+	return null;
+}
+var data = "";
+
+function setPort(port, build) {
+	//传code
+	var username = getQueryString('code');
+	if(port == 0) {
+		//正式环境接口地址
+		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
+	} else if(port == 1) {
+		//开发环境接口地址
+		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
+	} else if(port == 2) {
+		//测试环境接口地址
+		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
 	}
+	if(build == 0) {
+		//打包
+		data = 'client_id=client' + '&client_secret=secret' +
+			'&grant_type=password' + '&username=' + username + '&password=""';
+	} else if(build == 1) {
+		//本地
+		data = 'client_id=client' + '&client_secret=secret' +
+			'&grant_type=password' + '&username=ADMIN' +
+			'&password=yadea01admin';
+	}
+}
+//全局变量url
+setPort(1, 0);
+//获取接口地址前缀
+Vue.prototype.portUrl = localStorage.getItem('url');
+Vue.prototype.websocketUrl = localStorage.getItem('websocketUrl');
+Vue.prototype.requestData = function(param) {
+	this.$http.post(this.portUrl + param.proturl, param.data, {
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+		}
+	}).then(function(res) {
+		param.callback(res);
+	}, function(res) {})
+}
+
+//vue-resource,可以看下文档
+Vue.http.post(localStorage.getItem('url') + 'oauth/token', data, {
+	headers: {
+		'Content-Type': 'application/x-www-form-urlencoded'
+	}
+}).then(function(res) {
+	console.log(res);
+	localStorage.setItem("access_token", res.body.access_token);
+
+	//localStorage.setItem("access_token", '7b27572d-4e31-4af3-8fc8-86a7d16c19f1');	//WR
+
+	var param = {
+		"pUrl": window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search,
+		"timestamp": new Date().getTime()
+	}
+	//获取微信签名，之后才能对微信配置
+	//参数
+	Vue.http.post(localStorage.getItem('url') + 'api/getJsTicket',
+		param, {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+			}
+		}).then(function(res) {
+		//获取到微信的信息后进行微信的配置
+		console.log('okConfigWX');
+		var result = null;
+		wx.config({
+			debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			appId: res.body.rows[0].corpid, // 必填，公众号的唯一标识
+			timestamp: res.body.rows[0].timestamp, // 必填，生成签名的时间戳
+			nonceStr: res.body.rows[0].nonceStr, // 必填，生成签名的随机串
+			signature: res.body.rows[0].signature, // 必填，签名，见附录1
+			jsApiList: [
+				"onMenuShareTimeline",
+				"onMenuShareAppMessage",
+				"onMenuShareQQ",
+				"onMenuShareWeibo",
+				"onMenuShareQZone",
+				"startRecord",
+				"stopRecord",
+				"onVoiceRecordEnd",
+				"playVoice",
+				"pauseVoice",
+				"stopVoice",
+				"onVoicePlayEnd",
+				"uploadVoice",
+				"downloadVoice",
+				"chooseImage",
+				"previewImage",
+				"uploadImage",
+				"downloadImage",
+				"translateVoice",
+				"getNetworkType",
+				"openLocation",
+				"getLocation",
+				"hideOptionMenu",
+				"showOptionMenu",
+				"hideMenuItems",
+				"showMenuItems",
+				"hideAllNonBaseMenuItem",
+				"showAllNonBaseMenuItem",
+				"closeWindow",
+				"scanQRCode",
+				"chooseWXPay",
+				"openProductSpecificView",
+				"addCard",
+				"chooseCard",
+				"openCard",
+			] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+	}, function(res) {
+		console.log(res)
+	});
+	//创建实例
+	new Vue({
+		el: '#app',
+		router,
+		template: '<App/>',
+		components: {
+			App
+		},
+		created() {
+			this.$http.post(localStorage.getItem('url') + 'api/getOpenId', {}, {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+				}
+			}).then(function(res) {
+				localStorage.setItem("openid", res.body.rows[0].openId);
+				var param = {
+					wechatID: localStorage.getItem('openid')
+				};
+				//判断角色
+				this.$http.post(localStorage.getItem('url') + 'api/getUser',
+					param, {
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
+						}
+					}).then(function(res) {
+					console.log(res);
+					//res.body.rows[0].role = "unregistered";
+					if(res.body.rows[0].role == "user") {
+						this.$router.push({
+							name: 'index',
+							params: res.body.rows[0]
+						});
+					} else if(res.body.rows[0].role == "admin") {
+						this.$router.push({
+							name: 'admin',
+							params: res.body.rows[0]
+						});
+					} else if(res.body.rows[0].role == "unregistered") {
+						this.$router.push({
+							name: 'register',
+							params: res.body.rows[0]
+						});
+					}
+				})
+			})
+		},
+	})
 })

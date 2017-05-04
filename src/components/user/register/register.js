@@ -97,9 +97,29 @@ export default {
 					btnCloseText: "确定",
 				});
 			} else {
-				this.$router.push({
-					name: 'index'
-				});
+				var that = this;
+				var param = {
+					proturl: 'api/saveUser',
+					data: {
+						name: this.userName,
+						phone: this.userPhone
+					},
+					callback: function(res) {
+						console.log(res);
+						if(res.body.rows[0].code === "200") {
+							that.$router.push({
+								name: 'index',
+								params: {
+									userName: that.userName,
+									userPhone: that.userName
+								}
+							});
+						}
+
+					}
+				}
+				this.requestData(param);
+
 			}
 		}
 	},
