@@ -55,8 +55,8 @@
 				state: 0,
 				onClose: null,
 				onAddCar: null,
-				endL:0,
-				endT:0,
+				endL: 0,
+				endT: 0,
 			};
 		},
 		components: {
@@ -101,17 +101,21 @@
 				}
 			},
 			addCar: function($event, goodId) {
-				this.onAddCar();
-				this.close();
-				setTimeout(function() {
-					var fly = new flyModal({
-						startT: $event.y,
-						startL: $event.x,
-						endT: this.endT,
-						endL: this.endL
-					});
-				}.bind(this), 200);
-
+				if(!event._constructed) {
+					setTimeout(function() {
+						var fly = new flyModal({
+							startT: $event.y,
+							startL: $event.x,
+							endT: this.endT,
+							endL: this.endL
+						});
+					}.bind(this), 200);
+					this.onAddCar();
+					if(!this.isAddAllShow) {
+						this.close();
+					}
+					return;
+				}
 			},
 			onSwipeUp: function(e) {
 				if(this.state == 0) {
@@ -119,11 +123,11 @@
 					this.isAddAllShow = true;
 					this.isAddWkWebView = false;
 					this.showMask = false;
+					this.onSwipeUpEnd();
 				}
-				console.log(this.state);
-
 			},
 			onSwipeDown: function(e) {
+				this.onSwipeDownEnd();
 				if(this.state == 1) {
 					this.state -= 1;
 					this.isAddAllShow = false;
@@ -141,8 +145,7 @@
 		mounted() {
 			this.endL = $('.shopCarBox')[0].offsetLeft + ($('.shopCarBox')[0].clientWidth / 3);
 			this.endT = $('.shopCarBox')[0].offsetTop + (0.1 * window.rem);
-			
-			
+
 			setTimeout(function() {
 				this.isAddWkWebView = true;
 			}.bind(this), 100);

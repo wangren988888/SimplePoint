@@ -14,7 +14,7 @@
 	top: 0;
 	left: 0;
 	background-color: #000;
-	opacity: .8;
+	opacity: .6;
 	z-index: 10;
 }
 .module .def {
@@ -38,27 +38,12 @@
 	-o-transition: all .5s;
 }
 
-
-/*.fade-enter-active,
-.fade-leave-active {
-	transition: all .5s;
-	-moz-transition: all .5s;
-	-webkit-transition: all .5s;
-	-o-transition: all .5s;
-}
-
-.conter.fade-enter,
-.conter.fade-leave-active {
-	top: 10%;
-	opacity: 0;
-}*/
-
-.isWKwebView .scrollBox .conter.show {
+.module.isWKwebView .scrollBox .conter {
 	top: 13%;
 	opacity: 1;
 }
 
-.isWKwebView .scrollBox .conter.hide {
+.module.isWKwebView .scrollBox .conter.hide {
 	top: 10%;
 	opacity: 0;
 }

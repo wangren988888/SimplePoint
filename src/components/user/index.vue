@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
-		<div class="shopCarBox" ref="shopCarBox">
-			<img src="../../assets/img/shoppingCar.png" />
+		<div class="shopCarBox" :class="{hide:carBoxHind}" ref="shopCarBox">
+			<img src="../../assets/img/shoppingCar.png" @click="openCart" />
 		</div>
 		<div class="headInfo" id="headInfo">
 			<div id="headMask"></div>
@@ -37,6 +37,7 @@
 						</li>-->
 						<li class="navItem" v-for="(item,index) in leftNav" :class="{on:navItemIndex==index}" :data-code="item.code" @click="cutType(item.code,index)">
 							<i v-if="item.icon.length>0" class="icon" :style="{backgroundImage: 'url('+item.icon+')'}"></i>{{item.title}}
+							<i class="hintNumb" v-if="hintNumb[index]>0">{{hintNumb[index]}}</i>
 						</li>
 					</ul>
 				</div>
@@ -46,7 +47,7 @@
 							<p class="greensType" :data-code="item.code">{{item.classTitle}}</p>
 							<ul class="contentList">
 								<li class="contentItem" v-for="(items,indexs) in item.greensPartList">
-									<div class="clickDom clear" @click.stop="showGreensModal(items,index,indexs)">
+									<div class="clickDom clear" @click="showGreensModal($event,items,index,indexs)">
 										<div class="left greensImg">
 											<img :src="items.stopimg" />
 										</div>
@@ -56,11 +57,10 @@
 											<p class="monthSale">月售{{items.sale}}份</p>
 											<p class="money"><span class="subs">￥</span>{{items.money}}</p>
 										</div>
-									</div>									
+									</div>
 									<button class="remoBtn" :class="{show:shopList[index][indexs].numb!=undefined&&shopList[index][indexs].numb!=0}" :data-greensId="items.greensId" @click.stop="remoShop($event,index,indexs,items)"></button>
 									<span class="gerNumb" :class="{show:shopList[index][indexs].numb!=undefined&&shopList[index][indexs].numb!=0}">{{shopList[index][indexs].numb}}</span>
 									<button class="addBtn" :data-greensId="items.greensId" @click.stop="addCart($event,index,indexs,items)"></button>
-									
 								</li>
 							</ul>
 						</div>

@@ -4,10 +4,11 @@
  * ren.wang@hand-china.com
  * 842837175@qq.com
  */
-import BScroll from 'better-scroll'
+import BScroll from 'better-scroll';
 import greensModal from "../greensModal";
-import flyModal from "../fly"
-import hotIcon from "../../assets/img/hot.png"
+import flyModal from "../fly";
+import cartModal from "../cart"
+import hotIcon from "../../assets/img/hot.png";
 export default {
 	data() {
 		//当前页面所需绑定的变量放到这里
@@ -50,10 +51,10 @@ export default {
 				title: "小吃零食",
 				code: "SOCK",
 				icon: ''
-			}],
+			}], //分类
 			greensList: [{
-					classTitle: "热销榜",
-					code: "HOTSELL",
+					classTitle: "热销榜", //所属分类
+					code: "HOTSELL", //所属分类code
 					greensPartList: [{
 						stopimg: 'http://servicewx.yadea.com.cn/upload/test/temp1.jpg',
 						greensTitle: "鸭腿饭",
@@ -219,7 +220,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10009',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp10.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp11.jpg',
@@ -232,7 +233,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10010',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp2.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp3.jpg',
@@ -245,7 +246,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10011',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp5.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp6.jpg',
@@ -258,7 +259,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10012',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp8.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp9.jpg',
@@ -276,7 +277,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10013',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp10.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp11.jpg',
@@ -289,7 +290,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10014',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp2.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp3.jpg',
@@ -302,7 +303,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10015',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp5.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp6.jpg',
@@ -315,7 +316,7 @@ export default {
 						sale: 25,
 						goodDir: "100%",
 						money: 13,
-						greensId: '123456',
+						greensId: '10016',
 						swipeList: [
 							'http://servicewx.yadea.com.cn/upload/test/temp8.jpg',
 							'http://servicewx.yadea.com.cn/upload/test/temp9.jpg',
@@ -388,12 +389,13 @@ export default {
 					numb: 0
 				}],
 			], //购物车中的商品
+			hintNumb: [0, 0, 0, 0, 0], //左边分类中的提示
 			greensAmong: [], //滚动队列
 			cutScrollType: 1, //滚动类型。1.为自然滚动；2.为点击菜单分类滚动
 			isCut: true,
 			carLeft: 0,
 			carTop: 0,
-
+			carBoxHind: false,
 		}
 	},
 	components: {
@@ -433,7 +435,7 @@ export default {
 			this.navListStyle = {
 				minHeight: contentH + 'rem'
 			}
-			
+
 			this.carLeft = this.$refs.shopCarBox.offsetLeft;
 			this.carTop = this.$refs.shopCarBox.offsetTop;
 
@@ -540,9 +542,11 @@ export default {
 			}
 		},
 		//显示菜品详情
-		showGreensModal: function(data, index, indexs) {
-			console.log(data);
+		showGreensModal: function(event, data, index, indexs) {
+			console.log(event._constructed);
+			//if(!event._constructed) {
 			var that = this;
+			this.carBoxHind = true;
 			var mygreensModal = new greensModal({
 				showMask: true,
 				greensData: data,
@@ -555,6 +559,7 @@ export default {
 									if(itemId == that.greensList[i].greensPartList[b].greensId) {
 										that.shopList[i][b].goods = data;
 										that.shopList[i][b].numb += 1;
+										that.hintNumb.splice(i, 1, that.hintNumb[i] + 1);
 									}
 								}
 							}
@@ -568,6 +573,12 @@ export default {
 										that.shopList[i][b].numb += 1;
 									}
 								}
+							} else {
+								for(var b = 0; b < that.greensList[i].greensPartList.length; b++) {
+									if(itemId == that.greensList[i].greensPartList[b].greensId) {
+										that.hintNumb.splice(i, 1, that.hintNumb[i] + 1);
+									}
+								}
 							}
 						}
 					}
@@ -578,8 +589,16 @@ export default {
 					} else {
 						that.shopList[index][indexs].numb += 1;
 					}
+
+				},
+				onSwipeUpEnd: function() {
+					that.carBoxHind = false;
+				},
+				onSwipeDownEnd: function() {
+					that.carBoxHind = true;
 				}
 			});
+			//}
 		},
 		//添加到购物车
 		addCart: function(event, index, indexs, data) {
@@ -602,6 +621,7 @@ export default {
 								if(itemId == this.greensList[i].greensPartList[b].greensId) {
 									this.shopList[i][b].goods = data;
 									this.shopList[i][b].numb += 1;
+									this.hintNumb.splice(i, 1, this.hintNumb[i] + 1);
 								}
 							}
 						}
@@ -615,6 +635,12 @@ export default {
 									this.shopList[i][b].numb += 1;
 								}
 							}
+						} else {
+							for(var b = 0; b < this.greensList[i].greensPartList.length; b++) {
+								if(itemId == this.greensList[i].greensPartList[b].greensId) {
+									this.hintNumb.splice(i, 1, this.hintNumb[i] + 1);
+								}
+							}
 						}
 					}
 				}
@@ -625,7 +651,7 @@ export default {
 				} else {
 					this.shopList[index][indexs].numb += 1;
 				}
-				
+
 				console.log(this.shopList);
 				return;
 			}
@@ -644,6 +670,7 @@ export default {
 								if(itemId == this.greensList[i].greensPartList[b].greensId) {
 									//this.shopList[i][b].goods = data;
 									this.shopList[i][b].numb -= 1;
+									this.hintNumb.splice(i, 1, this.hintNumb[i] - 1);
 								}
 							}
 						}
@@ -657,6 +684,12 @@ export default {
 									this.shopList[i][b].numb -= 1;
 								}
 							}
+						} else {
+							for(var b = 0; b < this.greensList[i].greensPartList.length; b++) {
+								if(itemId == this.greensList[i].greensPartList[b].greensId) {
+									this.hintNumb.splice(i, 1, this.hintNumb[i] - 1);
+								}
+							}
 						}
 					}
 				}
@@ -665,8 +698,44 @@ export default {
 				return;
 			}
 		},
-		openCar: function() {
-
+		openCart: function() {
+			var that = this;
+			var greensList = [];
+			for(var i = 1; i < this.shopList.length; i++) {
+				for(var b = 0; b < this.shopList[i].length; b++) {
+					if(this.shopList[i][b].numb > 0) {
+						greensList.push(this.shopList[i][b]);
+					}
+				}
+			}
+			this.carBoxHind = true;
+			var cart = new cartModal({
+				greensList: greensList,
+				onAddCar: function(itemId) {
+					for(var i = 0; i < that.shopList.length; i++) {
+						for(var b = 0; b < that.shopList[i].length; b++) {
+							if(itemId === that.shopList[i][b].goods.greensId) {
+								that.shopList[i][b].numb += 1;
+								if(that.greensList[i].code != 'HOTSELL') {
+									that.hintNumb.splice(i, 1, that.hintNumb[i] + 1);
+								}
+							}
+						}
+					}
+				},
+				onRmoveCar: function(itemId) {
+					for(var i = 0; i < that.shopList.length; i++) {
+						for(var b = 0; b < that.shopList[i].length; b++) {
+							if(itemId === that.shopList[i][b].goods.greensId) {
+								that.shopList[i][b].numb -= 1;
+								if(that.greensList[i].code != 'HOTSELL') {
+									that.hintNumb.splice(i, 1, that.hintNumb[i] - 1);
+								}
+							}
+						}
+					}
+				}
+			});
 		}
 	},
 	created() {
