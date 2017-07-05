@@ -112,16 +112,16 @@ function setPort(port, build) {
 	var username = getQueryString('code');
 	if(port == 0) {
 		//正式环境接口地址
-		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
-		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('url', '');
+		localStorage.setItem('websocketUrl', '');
 	} else if(port == 1) {
 		//开发环境接口地址
-		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
-		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('url', '');
+		localStorage.setItem('websocketUrl', '');
 	} else if(port == 2) {
 		//测试环境接口地址
-		localStorage.setItem('url', 'http://servicewx.yadea.com.cn/yadi_dc/');
-		localStorage.setItem('websocketUrl', 'servicewx.yadea.com.cn/yadi_dc/');
+		localStorage.setItem('url', '');
+		localStorage.setItem('websocketUrl', '');
 	}
 	if(build == 0) {
 		//打包
