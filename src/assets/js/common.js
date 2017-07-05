@@ -1,7 +1,6 @@
 /**
  * Created by 王仁 on 2017/4/1.
  * 邮箱：
- * ren.wang@hand-china.com
  * 842837175@qq.com
  */
 
